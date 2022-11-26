@@ -5,6 +5,7 @@
 package view;
 
 import Entidades.Client;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -131,6 +132,8 @@ public class Cadastro extends javax.swing.JInternalFrame {
         String senha = jPasswordField1.getText();
         
         Client c = new Client (nome, email, senha);
+        JOptionPane.showMessageDialog(null, "Adicionado com sucesso");
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
