@@ -1,0 +1,16 @@
+CREATE TABLE USUARIO(
+    id integer PRIMARY KEY NOT NULL,
+    nome varchar(60),
+    email varchar(70),
+    senha varchar(50)
+);
+
+CREATE TABLE PRODUTO(
+    cod integer PRIMARY KEY NOT NULL,
+    nome varchar(20),
+    categoria integer,
+    estoque integer,
+    preco decimal
+);
+
+INSERT INTO USURAIO VALUES(1, 'Matheus', 'matheus0316bernardo13@gmail.com', '230006004')

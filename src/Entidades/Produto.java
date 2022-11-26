@@ -12,6 +12,14 @@ public class Produto {
         this.preco = preco;
     }
     
+    public Produto(int cod, String nome, String categoria, int estoque, double preco){
+        this.cod = cod;
+        this.categoria = categoria;
+        this.nome = nome;
+        this.estoque = estoque;
+        this.preco = preco;
+    }
+    
     public String getCategoria(){
         return categoria;
     }
