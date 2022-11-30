@@ -17,9 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    int I;
     public Login() {
         initComponents();
     }
@@ -190,13 +188,14 @@ public class Login extends javax.swing.JFrame {
         try {
             int cont = 0;
             while(rs.next()){
-            String E = rs.getString("email");
-            String S = rs.getString("senha");
-            if (email.equals(E) && senha.equals(S)){
-                cont += 1;
-                TelaPrincipal p = new TelaPrincipal();
-                p.setVisible(true);
-                this.setVisible(false);
+                I = rs.getInt("id");
+                String E = rs.getString("email");
+                String S = rs.getString("senha");
+                if (email.equals(E) && senha.equals(S)){
+                    cont += 1;
+                    TelaPrincipal p = new TelaPrincipal(I);
+                    p.setVisible(true);
+                    this.setVisible(false);
             }
         }
             
