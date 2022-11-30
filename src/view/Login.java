@@ -4,6 +4,11 @@
  */
 package view;
 
+import Server.Conexao;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -169,28 +174,38 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_LoginEmailActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (LoginEmail.getText().equals("matheus0316bernardo13@gmail.com") && LoginSenha.getText().equals("230006004")){
-            JOptionPane.showMessageDialog(null, "Bem-vindo");
+        String email = LoginEmail.getText();
+        String senha = LoginSenha.getText();
+        
+        Conexao con = new Conexao();
+        
+        String sql = "SELECT * FROM USUARIO";
+        ResultSet rs = null;
+        try {
+            rs = con.executaBusca(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            int cont = 0;
+            while(rs.next()){
+            String E = rs.getString("email");
+            String S = rs.getString("senha");
+            if (email.equals(E) && senha.equals(S)){
+                cont += 1;
+                TelaPrincipal p = new TelaPrincipal();
+                p.setVisible(true);
+                this.setVisible(false);
+            }
+        }
             
-            TelaPrincipal p = new TelaPrincipal();
-            p.setVisible(true);
-            
-            this.setVisible(false);
+            if(cont == 0){
+                JOptionPane.showMessageDialog(null, "Usuario ou senha incorretos");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        else{
-            JOptionPane.showMessageDialog(null, "Erro: Usuario não encontrado");
-        }
-        
-        if (LoginEmail.getText().equals("matheus0316bernardo13@gmail.com") == false){
-            JOptionPane.showMessageDialog(null, "Email inválido");
-        }
-        
-        if (LoginSenha.getText().equals("230006004") == false){
-            JOptionPane.showMessageDialog(null, "Senha errada");
-        }
-        
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

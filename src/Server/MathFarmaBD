@@ -13,4 +13,9 @@ CREATE TABLE PRODUTO(
     preco decimal
 );
 
-INSERT INTO USURAIO VALUES(1, 'Matheus', 'matheus0316bernardo13@gmail.com', '230006004')
+INSERT INTO USUARIO VALUES(1, 'Matheus', 'matheus0316bernardo13@gmail.com', '230006004');
+
+CREATE SEQUENCE USUARIO_SEQ START 2;
+CREATE SEQUENCE PROD_SEQ START 1;
+
+INSERT INTO USUARIO (id, nome, email, senha) VALUES (nextval('USUARIO_SEQ'),'abacate', 'abacate123', '1234')
