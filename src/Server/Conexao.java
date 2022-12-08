@@ -14,7 +14,6 @@ public class Conexao {
         url = "jdbc:postgresql://localhost:5432/MathFarma";
         try {
             con = DriverManager.getConnection(url, "postgres" ,"230006004");
-            System.out.println("Conectado");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,10 +1,10 @@
 package Entidades;
 
-public abstract class User {
+public class User {
     private int id;
     private String nome, email, senha;
     
-    protected User (int id, String nome, String email, String senha){
+    public User (int id, String nome, String email, String senha){
         this.id = id;
         this.nome = nome;
         this.email = email;

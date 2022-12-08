@@ -4,6 +4,7 @@
  */
 package view;
 
+import Entidades.User;
 import Server.Conexao;
 import java.sql.ResultSet;
 
@@ -12,48 +13,18 @@ import java.sql.ResultSet;
  * @author Pichau
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    private int id;
-    private String nome;
-    
-    
-    
+    private User user;  
     
     /**
      * Creates new form TelaPrincipal
      */
-    public TelaPrincipal(int ID) {
+    public TelaPrincipal(User user) {
+        this.user = user;
         initComponents();
-        id = ID;
-        System.out.println(id);
     }
     
-    String sql = "SELECT * FROM USUARIO WHERE 'id' = '"+ id +"'";
     
-    public int getId(){
-        System.out.println(id);
-        return id;
-    }
     
-    public String getNome(){
-        Conexao con = new Conexao();
-        ResultSet rs = null;
-        System.out.println("TP"+ getId());
-        try {
-            rs = con.executaBusca(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try{
-            while(rs.next()){
-                nome = rs.getString("nome");
-                System.out.println(nome);
-                return nome;
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,7 +53,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Bem vindo(a):");
 
-        jLabel2.setText(getNome());
+        jLabel2.setText(user.getNome());
 
         area.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         area.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -92,20 +63,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         areaLayout.setHorizontalGroup(
             areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(areaLayout.createSequentialGroup()
-                .addGap(492, 492, 492)
-                .addGroup(areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(523, Short.MAX_VALUE))
+                .addGap(488, 488, 488)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(426, Short.MAX_VALUE))
         );
         areaLayout.setVerticalGroup(
             areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(areaLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(447, Short.MAX_VALUE))
+                .addGap(71, 71, 71)
+                .addGroup(areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(476, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Remédios");
@@ -153,17 +124,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,37 +156,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaPrincipal(0).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane area;

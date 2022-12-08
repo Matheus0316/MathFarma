@@ -4,20 +4,23 @@
  */
 package view;
 
+import Entidades.Admin;
+import Entidades.Client;
 import Server.Conexao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import Entidades.User;
 
 /**
  *
  * @author Pichau
  */
 public class Login extends javax.swing.JFrame {
-
-    int I;
+    private int id;    
+    private String sql;
+    private ResultSet rs = null;
+    
     public Login() {
         initComponents();
     }
@@ -166,44 +169,84 @@ public class Login extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1080, 630));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public int getId(){
+        Conexao con = new Conexao();
+        String email = LoginEmail.getText();
+        String senha = LoginSenha.getText();
+        sql = "SELECT * FROM USUARIO";
+        
+        try {
+            rs = con.executaBusca(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            
+            while(rs.next()){
+                String E = rs.getString("email");
+                String S = rs.getString("senha");
+                if (email.equals(E) && senha.equals(S)){
+                    id = rs.getInt("id");
+            }
+        }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+    
     private void LoginEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LoginEmailActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int cont = 0;
+        Conexao con = new Conexao();
         String email = LoginEmail.getText();
         String senha = LoginSenha.getText();
+        sql = "SELECT * FROM USUARIO";
         
-        Conexao con = new Conexao();
-        
-        String sql = "SELECT * FROM USUARIO";
-        ResultSet rs = null;
         try {
             rs = con.executaBusca(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         
         try {
-            int cont = 0;
+            
             while(rs.next()){
-                I = rs.getInt("id");
+                int I = rs.getInt("id");
+                String N = rs.getString("nome");
                 String E = rs.getString("email");
                 String S = rs.getString("senha");
                 if (email.equals(E) && senha.equals(S)){
                     cont += 1;
-                    TelaPrincipal p = new TelaPrincipal(I);
-                    p.setVisible(true);
-                    this.setVisible(false);
+                    if (I == 1){
+                        User user = new Admin(I, N, E, S);
+                        TelaPrincipal p = new TelaPrincipal(user);
+                        p.setVisible(true);
+                        break;
+                    }
+                    else{
+                        User user = new Client(I, N, E, S);
+                        TelaPrincipal p = new TelaPrincipal(user);
+                        p.setVisible(true);
+                        break;
+                    }
             }
         }
             
-            if(cont == 0){
-                JOptionPane.showMessageDialog(null, "Usuario ou senha incorretos");
-            }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if(cont == 0){
+                JOptionPane.showMessageDialog(null, "Usuario ou senha incorretos");
+            }
+        else{
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
