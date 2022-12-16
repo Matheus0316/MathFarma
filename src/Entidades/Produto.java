@@ -1,18 +1,18 @@
 package Entidades;
 
 public class Produto {
-    String nome, categoria;
-    int estoque, cod;
+    String nome;
+    int categoria, estoque, cod;
     double preco;
     
-    public Produto(String nome, String categoria, int estoque, double preco){
+    public Produto(String nome, int categoria, int estoque, double preco){
         this.categoria = categoria;
         this.nome = nome;
         this.estoque = estoque;
         this.preco = preco;
     }
     
-    public Produto(int cod, String nome, String categoria, int estoque, double preco){
+    public Produto(int cod, String nome, int categoria, int estoque, double preco){
         this.cod = cod;
         this.categoria = categoria;
         this.nome = nome;
@@ -21,10 +21,25 @@ public class Produto {
     }
     
     public String getCategoria(){
-        return categoria;
+        if (categoria == 1){
+            return "Remédios";
+        }
+        if (categoria == 2){
+            return "Higiene";
+        }
+        if (categoria == 3){
+            return "Chocolates";
+        }
+        if (categoria == 4){
+            return "Material escolar";
+        }
+        else{
+            return null;
+        }
+        
     }
     
-    public void setCategoria(String cat){
+    public void setCategoria(int cat){
         categoria = cat;
     }
     
@@ -59,6 +74,10 @@ public class Produto {
     
     public void setPreco(double pre){
         preco = pre;
+    }
+
+    public void getNome(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
