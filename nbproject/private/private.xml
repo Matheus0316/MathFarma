@@ -5,9 +5,9 @@
         <group>
             <file>file:/C:/Users/Pichau/Documents/NetBeansProjects/MathFarma/src/view/CadastroProduto.java</file>
             <file>file:/C:/Users/Pichau/Documents/NetBeansProjects/MathFarma/src/Entidades/Produto.java</file>
-            <file>file:/C:/Users/Pichau/Documents/NetBeansProjects/MathFarma/src/view/Login.java</file>
-            <file>file:/C:/Users/Pichau/Documents/NetBeansProjects/MathFarma/src/view/TelaPrincipal.java</file>
-            <file>file:/C:/Users/Pichau/Documents/NetBeansProjects/MathFarma/src/view/Carrinho.java</file>
+            <file>file:/C:/Users/Pichau/Documents/NetBeansProjects/MathFarma/src/Server/Conexao.java</file>
+            <file>file:/C:/Users/Pichau/Documents/NetBeansProjects/MathFarma/src/Server/Repository.java</file>
+            <file>file:/C:/Users/Pichau/Documents/NetBeansProjects/MathFarma/src/view/Itens.java</file>
         </group>
     </open-files>
 </project-private>

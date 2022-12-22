@@ -11,7 +11,7 @@ public class User {
         this.senha = senha;
     }
     
-    protected User (String nome, String email, String senha){
+    public User (String nome, String email, String senha){
         this.nome = nome;
         this.email = email;
         this.senha = senha;

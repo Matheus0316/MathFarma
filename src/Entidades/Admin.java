@@ -11,7 +11,7 @@ public class Admin extends User{
         super(nome, email, senha);
     }
     
-    public void novoProduto(String nom, String cat, int est, double pre){
+    public void novoProduto(String nom, int cat, int est, double pre){
         Produto p = new Produto(nom, cat, est, pre);
     }
     

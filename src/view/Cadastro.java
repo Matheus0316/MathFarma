@@ -4,12 +4,8 @@
  */
 package view;
 
-import Entidades.Client;
-import Server.Conexao;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import Entidades.User;
+import Server.Repository;
 
 /**
  *
@@ -130,27 +126,12 @@ public class Cadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Conexao con = new Conexao();
         String nome = jTextField1.getText();
         String email = jTextField2.getText();
         String senha = jPasswordField1.getText();
-        
-        String sql = "INSERT INTO USUARIO (id, nome, email, senha) VALUES (nextval('USUARIO_SEQ'), '"+ nome +"', '" + email +"', '" + senha +"')";
-        int res;
-        try {
-            res = con.executarSQL(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            res = 0;
-        }
-        if (res > 0){
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
-        }
-        
-        else{
-            JOptionPane.showMessageDialog(null, "Usuário não cadastrado");
-        }
-        
+        Repository rep = new Repository();
+        User u = new User(nome, email, senha);
+        rep.cadastrarUser(u);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 

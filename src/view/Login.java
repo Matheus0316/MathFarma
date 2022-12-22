@@ -170,33 +170,7 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    public int getId(){
-        Conexao con = new Conexao();
-        String email = LoginEmail.getText();
-        String senha = LoginSenha.getText();
-        sql = "SELECT * FROM USUARIO";
-        
-        try {
-            rs = con.executaBusca(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        try {
-            
-            while(rs.next()){
-                String E = rs.getString("email");
-                String S = rs.getString("senha");
-                if (email.equals(E) && senha.equals(S)){
-                    id = rs.getInt("id");
-            }
-        }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
+   
     
     private void LoginEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginEmailActionPerformed
         // TODO add your handling code here:

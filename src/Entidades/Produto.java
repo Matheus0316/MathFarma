@@ -5,13 +5,6 @@ public class Produto {
     int categoria, estoque, cod;
     double preco;
     
-    public Produto(String nome, int categoria, int estoque, double preco){
-        this.categoria = categoria;
-        this.nome = nome;
-        this.estoque = estoque;
-        this.preco = preco;
-    }
-    
     public Produto(int cod, String nome, int categoria, int estoque, double preco){
         this.cod = cod;
         this.categoria = categoria;
@@ -20,22 +13,17 @@ public class Produto {
         this.preco = preco;
     }
     
-    public String getCategoria(){
-        if (categoria == 1){
-            return "Remédios";
-        }
-        if (categoria == 2){
-            return "Higiene";
-        }
-        if (categoria == 3){
-            return "Chocolates";
-        }
-        if (categoria == 4){
-            return "Material escolar";
-        }
-        else{
-            return null;
-        }
+    public Produto(String nome, int categoria, int estoque, double preco){
+        this.categoria = categoria;
+        this.nome = nome;
+        this.estoque = estoque;
+        this.preco = preco;
+    }
+    
+    
+    
+    public int getCategoria(){
+        return categoria;
         
     }
     
