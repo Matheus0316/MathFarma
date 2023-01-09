@@ -4,13 +4,13 @@
  */
 package view;
 
+import Entidades.Item;
 import Entidades.Produto;
 import Entidades.User;
-import Server.Conexao;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import Server.Repository;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +18,7 @@ import java.util.ArrayList;
  */
 public class Carrinho extends javax.swing.JInternalFrame {
     private User user;
+    Repository rep = new Repository();
     private List<Produto> produtos = new ArrayList<>();
     /**
      * Creates new form Carrinho
@@ -37,13 +38,20 @@ public class Carrinho extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jCheckBox1.setText("jCheckBox1");
 
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+
+        setClosable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Bem vindo " + user.getNome());
@@ -55,9 +63,9 @@ public class Carrinho extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 505, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 500, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -65,56 +73,53 @@ public class Carrinho extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "Código", "Quantidade", "Preço"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1050, 459));
+
+        jButton2.setText("Exibir itens");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 500, -1, -1));
+
+        Repository rep = new Repository();
+        jLabel2.setText(String.valueOf(rep.getTotal(user)));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    public List<Produto> read(){
-        Conexao con = new Conexao();
-        ResultSet rs = null;
-        Produto p = new Produto(0, "a", 0, 0, 0.0);
-        String sql = "SELECT * FROM PRODUTO";
-        
-        try {
-            rs = con.executaBusca(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        try {
-            while(rs.next()){
-               p.setCod(rs.getInt("cod"));
-               p.setNome(rs.getString("nome"));
-               p.setCategoria(rs.getInt("categoria"));
-               p.setEstoque(rs.getInt("estoque"));
-               p.setPreco(rs.getDouble("preco"));
-               
-               produtos.add(p);
-            }
-        }
-            
-         catch (Exception e) {
-            e.printStackTrace();
-        }
-        return produtos;
-    }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setVisible(false);
+        rep.comprar(user);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Produto p;
+        DefaultTableModel mod = (DefaultTableModel) tabela.getModel();
+        mod.setNumRows(0);
+        
+        for (Item it : rep.listarCarrinho(user)){
+            p = rep.getProd(it.getProdutoCod());
+            mod.addRow(new Object[]{it.getId(), it.getProdutoCod(), it.getQuantidade(), it.getPreco()});
+        }            
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

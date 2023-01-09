@@ -7,13 +7,36 @@ CREATE TABLE USUARIO(
 
 CREATE TABLE PRODUTO(
     cod integer PRIMARY KEY NOT NULL,
-    nome varchar(20),
+    nome varchar(50),
     categoria integer,
     estoque integer,
     preco decimal
 );
 
-INSERT INTO USUARIO VALUES(1, 'Matheus', 'matheus0316bernardo13@gmail.com', '230006004');
+CREATE TABLE CARRINHO(
+    id integer PRIMARY KEY,
+    id_user integer REFERENCES USUARIO(id)
+);
 
+CREATE TABLE ITENS(
+    id integer PRIMARY KEY,
+	carrinho_id integer REFERENCES CARRINHO(id),
+	produto_cod integer REFERENCES PRODUTO(cod),
+	quantidade integer,
+    preco decimal
+);
+
+INSERT INTO USUARIO VALUES(1, 'Matheus', 'matheus0316bernardo13@gmail.com', '230006004');
 CREATE SEQUENCE USUARIO_SEQ START 2;
 CREATE SEQUENCE PROD_SEQ START 1;
+CREATE SEQUENCE CAR_SEQ START 1;
+CREATE SEQUENCE ITEM_SEQ START 1;
+
+drop table ITENS;
+drop table CARRINHO;
+drop table PRODUTO;
+drop table USUARIO;
+drop sequence USUARIO_SEQ;
+drop sequence PROD_SEQ;
+drop sequence CAR_SEQ;
+drop sequence ITEM_SEQ;
