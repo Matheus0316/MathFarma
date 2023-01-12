@@ -4,7 +4,6 @@ import java.util.List;
 import Entidades.Produto;
 import Entidades.User;
 import Entidades.Item;
-import Entidades.Carrinho;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;

@@ -107,7 +107,7 @@ public class Carrinho extends javax.swing.JInternalFrame {
         
         for (Item it : rep.listarCarrinho(user)){
             p = rep.getProd(it.getProdutoCod());
-            mod.addRow(new Object[]{it.getId(), it.getProdutoCod(), it.getQuantidade(), it.getPreco()});
+            mod.addRow(new Object[]{p.getNome(), it.getProdutoCod(), it.getQuantidade(), it.getPreco()});
         }            
     }//GEN-LAST:event_jButton2ActionPerformed
 
